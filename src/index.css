@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fafafa;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0f0f0f;
+    color: #e5e5e5;
+  }
+
+  .settings-table th,
+  .settings-table td {
+    border-bottom-color: #333;
+  }
+
+  .settings-table th {
+    color: #aaa;
+  }
+
+  .error {
+    background: #1f0a0a;
+    border-color: #5c1a1a;
+  }
+
+  .footer {
+    border-top-color: #333;
+  }
+}

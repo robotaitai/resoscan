@@ -1,0 +1,145 @@
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: #888;
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.range {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.start-button {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
+  font-weight: 500;
+}
+
+.start-button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.start-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.settings-panel {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.settings-panel h2 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.settings-note {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0 0 0.75rem;
+}
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.settings-table th,
+.settings-table td {
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.settings-table th {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.good {
+  color: #16a34a;
+}
+
+.warn {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.footer a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
