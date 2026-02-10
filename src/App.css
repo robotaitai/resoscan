@@ -43,28 +43,58 @@
   gap: 1rem;
 }
 
-.start-button {
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
+/* ----- Landing screen ----- */
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  max-width: 440px;
+}
+
+.landing-intro {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ----- Shared buttons ----- */
+
+.btn {
+  padding: 0.65rem 1.75rem;
+  font-size: 1rem;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
-  color: #fff;
   cursor: pointer;
+  font-weight: 500;
   transition:
     background 0.2s,
     opacity 0.2s;
-  font-weight: 500;
 }
 
-.start-button:hover:not(:disabled) {
-  background: #1d4ed8;
-}
-
-.start-button:disabled {
+.btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.btn-lg {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* ----- Common elements ----- */
 
 .hint {
   color: #888;
@@ -85,7 +115,8 @@
   margin-top: 1.5rem;
 }
 
-.settings-panel h2 {
+.settings-panel h2,
+.settings-panel h3 {
   font-size: 1rem;
   margin: 0 0 0.25rem;
 }
