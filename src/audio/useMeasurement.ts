@@ -154,8 +154,7 @@ export function useMeasurement(
         const actualDurationSec = buffer.length / sampleRate
         const completedAt = new Date().toISOString()
 
-        const expectedDurationSec =
-          PRE_ROLL_SEC + sweepDuration + POST_ROLL_SEC
+        const expectedDurationSec = PRE_ROLL_SEC + sweepDuration + POST_ROLL_SEC
 
         // Compute impulse response via deconvolution
         let impulseResponse: MeasurementResult['impulseResponse'] = null
