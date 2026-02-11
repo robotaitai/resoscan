@@ -4,9 +4,17 @@ Measure your room's resonance frequencies — right in your browser.
 
 Plays a sine sweep through your speakers, records it with your microphone, and shows which frequencies your room amplifies or absorbs.
 
+---
+
+### [▶ Try it now — robotaitai.github.io/resoscan](https://robotaitai.github.io/resoscan/)
+
+---
+
+## Explanation
+
 ![How your room changes your sound](docs/nano.jpg)
 
-> **Try it now:** [https://robotaitai.github.io/resoscan/](https://robotaitai.github.io/resoscan/)
+![Resonance vs. Echo: The science of poor room acoustics](docs/explain.png)
 
 ## How to use
 
