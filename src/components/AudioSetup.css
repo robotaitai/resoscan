@@ -1,3 +1,8 @@
+/* ---------------------------------------------------------------------------
+ * AudioSetup component — only styles specific to this component.
+ * Buttons, tables, and feedback classes come from index.css.
+ * -------------------------------------------------------------------------*/
+
 .audio-setup {
   width: 100%;
 }
@@ -19,11 +24,11 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.75rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.85rem;
   font-weight: 500;
-  background: #dcfce7;
-  color: #166534;
+  background: var(--color-badge-bg);
+  color: var(--color-badge-text);
   margin: 0 0 1rem;
 }
 
@@ -35,7 +40,7 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #555;
+  color: var(--color-text-label);
   margin-bottom: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -45,48 +50,18 @@
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.95rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: #fff;
-  color: #1a1a1a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
   cursor: pointer;
   appearance: auto;
 }
 
 .setup-field select:focus {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--color-primary);
   outline-offset: 1px;
 }
-
-/* ----- Buttons ----- */
-
-.btn {
-  padding: 0.65rem 1.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition:
-    background 0.2s,
-    opacity 0.2s;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: #2563eb;
-  color: #fff;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: #1d4ed8;
-}
-
-/* ----- Settings panel (shared styles already in App.css) ----- */
 
 .audio-setup .settings-panel {
   margin-top: 0;
@@ -97,25 +72,7 @@
   margin: 0 0 0.25rem;
 }
 
-/* ----- Dark mode ----- */
-
-@media (prefers-color-scheme: dark) {
-  .permission-badge {
-    background: #052e16;
-    color: #86efac;
-  }
-
-  .setup-field label {
-    color: #aaa;
-  }
-
-  .setup-field select {
-    background: #1a1a1a;
-    border-color: #444;
-    color: #e5e5e5;
-  }
-
-  .setup-field select:focus {
-    outline-color: #3b82f6;
-  }
+.setup-proceed {
+  margin-top: 1.5rem;
+  text-align: center;
 }

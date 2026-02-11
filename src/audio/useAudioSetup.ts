@@ -1,12 +1,11 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import type { MicPermission, AudioTrackSettings, MicDevice } from './types'
-
-/** Preferred audio constraints — we request "raw" mic input. */
-const AUDIO_CONSTRAINTS: MediaTrackConstraints = {
-  echoCancellation: false,
-  noiseSuppression: false,
-  autoGainControl: false,
-}
+import { RAW_AUDIO_CONSTRAINTS } from '../constants'
+import type {
+  MicPermission,
+  AudioTrackSettings,
+  MicDevice,
+  OutputDevice,
+} from './types'
 
 export interface AudioSetupState {
   /** Current permission state. */
@@ -15,16 +14,26 @@ export interface AudioSetupState {
   error: string | null
   /** Available input devices (populated after permission grant). */
   devices: MicDevice[]
-  /** Currently-selected device ID. */
+  /** Currently-selected input device ID. */
   selectedDeviceId: string | null
+  /** Available output devices (speakers). */
+  outputDevices: OutputDevice[]
+  /** Currently-selected output device ID, or null for system default. */
+  selectedOutputDeviceId: string | null
   /** Settings reported by the browser for the active track. */
   trackSettings: AudioTrackSettings | null
+  /** The active MediaStream (available after permission grant). */
+  stream: MediaStream | null
   /** Request mic permission and enumerate devices. */
   requestPermission: () => Promise<void>
   /** Switch to a different input device. */
   selectDevice: (deviceId: string) => Promise<void>
+  /** Switch to a different output device. */
+  selectOutputDevice: (deviceId: string | null) => void
   /** Stop and release the current stream. */
   releaseStream: () => void
+  /** Detach stream without stopping tracks (for handoff to another component). */
+  detachStream: () => void
 }
 
 export function useAudioSetup(): AudioSetupState {
@@ -32,10 +41,15 @@ export function useAudioSetup(): AudioSetupState {
   const [error, setError] = useState<string | null>(null)
   const [devices, setDevices] = useState<MicDevice[]>([])
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
+  const [outputDevices, setOutputDevices] = useState<OutputDevice[]>([])
+  const [selectedOutputDeviceId, setSelectedOutputDeviceId] = useState<
+    string | null
+  >(null)
   const [trackSettings, setTrackSettings] = useState<AudioTrackSettings | null>(
     null,
   )
 
+  const [stream, setStream] = useState<MediaStream | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
 
   /** Stop all tracks on the current stream. */
@@ -43,7 +57,18 @@ export function useAudioSetup(): AudioSetupState {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((t) => t.stop())
       streamRef.current = null
+      setStream(null)
     }
+  }, [])
+
+  /**
+   * Detach the stream without stopping its tracks.
+   * Call this before handing the stream to another component
+   * so the cleanup effect won't kill the tracks on unmount.
+   */
+  const detachStream = useCallback(() => {
+    streamRef.current = null
+    setStream(null)
   }, [])
 
   /** Open a stream for a specific deviceId (or default). */
@@ -53,15 +78,16 @@ export function useAudioSetup(): AudioSetupState {
 
       const constraints: MediaStreamConstraints = {
         audio: {
-          ...AUDIO_CONSTRAINTS,
+          ...RAW_AUDIO_CONSTRAINTS,
           ...(deviceId ? { deviceId: { exact: deviceId } } : {}),
         },
       }
 
-      const stream = await navigator.mediaDevices.getUserMedia(constraints)
-      streamRef.current = stream
+      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+      streamRef.current = newStream
+      setStream(newStream)
 
-      const track = stream.getAudioTracks()[0]
+      const track = newStream.getAudioTracks()[0]
       const settings = track.getSettings()
 
       setTrackSettings({
@@ -76,12 +102,12 @@ export function useAudioSetup(): AudioSetupState {
 
       setSelectedDeviceId(settings.deviceId ?? deviceId ?? null)
 
-      return stream
+      return newStream
     },
     [stopStream],
   )
 
-  /** Enumerate audio input devices (labels are only available after permission). */
+  /** Enumerate audio input and output devices. */
   const enumerateDevices = useCallback(async () => {
     const all = await navigator.mediaDevices.enumerateDevices()
     const mics: MicDevice[] = all
@@ -91,8 +117,21 @@ export function useAudioSetup(): AudioSetupState {
         label: d.label,
         groupId: d.groupId,
       }))
+    const outputs: OutputDevice[] = all
+      .filter((d) => d.kind === 'audiooutput')
+      .map((d) => ({
+        deviceId: d.deviceId,
+        label: d.label,
+        groupId: d.groupId,
+      }))
     setDevices(mics)
-    return mics
+    setOutputDevices(outputs)
+    return { mics, outputs }
+  }, [])
+
+  /** Switch to a different output device (null = system default). */
+  const selectOutputDevice = useCallback((deviceId: string | null) => {
+    setSelectedOutputDeviceId(deviceId)
   }, [])
 
   /** Request permission, open default stream, enumerate devices. */
@@ -143,9 +182,14 @@ export function useAudioSetup(): AudioSetupState {
     error,
     devices,
     selectedDeviceId,
+    outputDevices,
+    selectedOutputDeviceId,
     trackSettings,
+    stream,
     requestPermission,
     selectDevice,
+    selectOutputDevice,
     releaseStream: stopStream,
+    detachStream,
   }
 }

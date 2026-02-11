@@ -1,8 +1,9 @@
 {
   "name": "resoscan",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "electron.cjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -12,7 +13,10 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "electron:dev": "VITE_BASE=./ npm run build && electron .",
+    "electron:build": "VITE_BASE=./ npm run build && electron-builder"
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -20,13 +24,16 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.58.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
+    "@vitejs/plugin-react": "^4.7.0",
+    "electron": "^40.2.1",
+    "electron-builder": "^26.7.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
@@ -37,7 +44,38 @@
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "vite": "^6.4.1",
+    "vitest": "^3.2.4"
+  },
+  "build": {
+    "appId": "com.resoscan.app",
+    "productName": "ResoScan",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron.cjs",
+      "public/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
   }
 }

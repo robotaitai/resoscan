@@ -1,0 +1,126 @@
+/* ---------------------------------------------------------------------------
+ * RecordingPanel component — only styles specific to this component.
+ * Buttons, tables, and feedback classes come from index.css.
+ * -------------------------------------------------------------------------*/
+
+.recording-panel {
+  width: 100%;
+}
+
+.recording-panel h2 {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.recording-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ----- Countdown ----- */
+
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.countdown-number {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ----- Recording indicator ----- */
+
+.recording-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-danger);
+}
+
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ----- Record / Stop buttons ----- */
+
+.btn-record {
+  background: var(--color-danger);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+.btn-record:hover:not(:disabled) {
+  background: var(--color-danger-hover);
+}
+
+.btn-stop {
+  background: var(--color-text-secondary);
+  color: #fff;
+}
+
+.btn-stop:hover:not(:disabled) {
+  background: var(--color-text);
+}
+
+/* ----- Result ----- */
+
+.recording-result {
+  margin-top: 0.5rem;
+}
+
+/* ----- Waveform ----- */
+
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 80px;
+  width: 100%;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 1rem;
+}
+
+.waveform-bar {
+  flex: 1;
+  min-height: 1px;
+  background: var(--color-primary);
+  border-radius: 1px;
+}
+
+.recording-stats {
+  margin-top: 0;
+}

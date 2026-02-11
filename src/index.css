@@ -1,3 +1,70 @@
+/* ---------------------------------------------------------------------------
+ * Design tokens (CSS custom properties)
+ * Single source of truth for colors, spacing, and typography.
+ * -------------------------------------------------------------------------*/
+
+:root {
+  /* Brand */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+
+  /* Neutrals */
+  --color-bg: #fafafa;
+  --color-text: #1a1a1a;
+  --color-text-muted: #888;
+  --color-text-secondary: #555;
+  --color-text-label: #555;
+  --color-border: #e5e7eb;
+  --color-surface: #fff;
+  --color-surface-alt: #f3f4f6;
+
+  /* Error surface */
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+
+  /* Success badge */
+  --color-badge-bg: #dcfce7;
+  --color-badge-text: #166534;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f0f0f;
+    --color-text: #e5e5e5;
+    --color-text-muted: #888;
+    --color-text-secondary: #aaa;
+    --color-text-label: #aaa;
+    --color-border: #333;
+    --color-surface: #1a1a1a;
+    --color-surface-alt: #1a1a1a;
+
+    --color-error-bg: #1f0a0a;
+    --color-error-border: #5c1a1a;
+
+    --color-badge-bg: #052e16;
+    --color-badge-text: #86efac;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #2563eb;
+    --color-danger: #f87171;
+    --color-danger-hover: #ef4444;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Reset
+ * -------------------------------------------------------------------------*/
+
 *,
 *::before,
 *::after {
@@ -6,33 +73,110 @@
 
 body {
   margin: 0;
-  background: #fafafa;
-  color: #1a1a1a;
+  background: var(--color-bg);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #0f0f0f;
-    color: #e5e5e5;
-  }
+/* ---------------------------------------------------------------------------
+ * Shared utility classes
+ * -------------------------------------------------------------------------*/
 
-  .settings-table th,
-  .settings-table td {
-    border-bottom-color: #333;
-  }
+/* --- Buttons --- */
 
-  .settings-table th {
-    color: #aaa;
-  }
+.btn {
+  padding: 0.65rem 1.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
+}
 
-  .error {
-    background: #1f0a0a;
-    border-color: #5c1a1a;
-  }
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-  .footer {
-    border-top-color: #333;
-  }
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.btn-lg {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* --- Feedback --- */
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--color-danger);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.good {
+  color: var(--color-success);
+}
+
+.warn {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* --- Settings table (reused across AudioSetup + RecordingPanel) --- */
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.settings-table th,
+.settings-table td {
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.settings-table th {
+  font-weight: 600;
+  color: var(--color-text-label);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.settings-panel {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.settings-panel h2,
+.settings-panel h3 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.settings-note {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.75rem;
 }

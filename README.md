@@ -1,58 +1,58 @@
 # ResoScan
 
-Room resonance measurement tool using Web Audio API.
+Measure your room's resonance frequencies — right in your browser.
 
-- **Sweep range:** 20 Hz – 15,000 Hz
-- **Assumes external speakers** (not built-in laptop speakers)
-- Requests raw mic input (`echoCancellation: false`, `noiseSuppression: false`, `autoGainControl: false`) and displays the actual settings the browser applied
+Plays a sine sweep through your speakers, records it with your microphone, and shows which frequencies your room amplifies or absorbs.
+
+> **Try it now:** [https://robotaitai.github.io/resoscan/](https://robotaitai.github.io/resoscan/)
+
+## How to use
+
+1. Open the link above in **Chrome** on a laptop/desktop.
+2. Allow microphone access.
+3. Pick your input mic and output speakers.
+4. Choose a sweep duration (longer = better accuracy).
+5. Click **Start measurement** — stay quiet while the sweep plays.
+6. View the results: frequency response, impulse response, detected resonances.
+
+**Tips:** Use external speakers, keep the room quiet, and sit where you normally listen. A measurement mic with a calibration file gives the best results.
+
+## Features
+
+- **Log sweep** — 20 Hz to 15 kHz, configurable duration (1 / 3 / 5 / 10 s)
+- **Impulse response** — auto-aligned, time-domain plot
+- **Frequency response** — log-frequency chart, adjustable window, 1/6 octave smoothing
+- **Resonance detection** — top peaks with frequency, prominence, and band classification
+- **Mic calibration** — upload a `.txt` / `.cal` / `.csv` correction file
+- **Live levels** — RMS & peak meter with clipping warning
+- **Device selection** — choose input mic and output speakers
+- **Dark mode** — follows system preference
 
 ## Run locally
 
 ```bash
-git clone https://github.com/your-username/resoscan.git
+git clone https://github.com/robotaitai/resoscan.git
 cd resoscan
 npm ci
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
-
 ## Scripts
 
-| Command              | Description                  |
-| -------------------- | ---------------------------- |
-| `npm run dev`        | Start dev server             |
-| `npm run build`      | Type-check + production build|
-| `npm run lint`       | ESLint                       |
-| `npm run typecheck`  | TypeScript type check        |
-| `npm test`           | Run unit tests (Vitest)      |
-| `npm run format`     | Format with Prettier         |
+| Command             | What it does                    |
+| ------------------- | ------------------------------- |
+| `npm run dev`       | Dev server                      |
+| `npm run build`     | Type-check + production build   |
+| `npm test`          | Unit tests (Vitest)             |
+| `npm run lint`      | ESLint                          |
+| `npm run typecheck` | TypeScript check                |
+| `npm run format`    | Prettier                        |
+| `npm run test:e2e`  | Playwright smoke tests          |
 
-## Manual test checklist — Audio setup
+## Tech
 
-Use this checklist when verifying the audio setup screen on a real browser (Chrome recommended).
-
-- [ ] Open `http://localhost:5173`, click **Start measurement** — you should see the "Audio setup" screen
-- [ ] Click **Grant microphone access** — the browser mic permission dialog appears
-- [ ] **Grant** permission — you see:
-  - A green "Microphone permission granted" badge
-  - A device selector populated with your microphone(s)
-  - A settings table showing sample rate, channels, echo cancellation, noise suppression, auto gain control
-- [ ] Verify sample rate shows (typically 48 kHz on macOS)
-- [ ] Verify echo cancellation, noise suppression, and auto gain control all show **false** (green). If any show "true (browser override!)" in red — that's the browser overriding our request; note which browser/OS
-- [ ] If multiple mics are available, switch device in the dropdown — settings table updates
-- [ ] **Deny** permission (revoke in browser settings and retry) — you see a red error: "Microphone permission was denied."
-- [ ] Test on Chrome macOS with MacBook built-in mic — should work end to end
-
-## Tech stack
-
-- Vite + React + TypeScript
-- Web Audio API
-- Vitest + Testing Library
-- ESLint + Prettier
-- GitHub Actions CI
+Vite + React + TypeScript · Web Audio API · Pure TS DSP (FFT, convolution, deconvolution) · Vitest + Playwright · ESLint + Prettier · GitHub Actions CI/CD · Optional Electron wrapper
 
 ## License
 
 [MIT](LICENSE)
-# resoscan

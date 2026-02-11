@@ -1,7 +1,9 @@
 import {
   formatDeviceLabel,
   formatSampleRate,
-  formatBooleanSetting,
+  formatProcessingSetting,
+  formatDuration,
+  bufferDuration,
   summariseSettings,
   deduplicateDevices,
 } from './format'
@@ -52,21 +54,21 @@ describe('formatSampleRate', () => {
   })
 })
 
-describe('formatBooleanSetting', () => {
-  it('reports false as good', () => {
-    const result = formatBooleanSetting(false, false)
+describe('formatProcessingSetting', () => {
+  it('reports false as not overridden', () => {
+    const result = formatProcessingSetting(false)
     expect(result.text).toBe('false')
     expect(result.overridden).toBe(false)
   })
 
   it('reports true as overridden', () => {
-    const result = formatBooleanSetting(false, true)
+    const result = formatProcessingSetting(true)
     expect(result.text).toContain('override')
     expect(result.overridden).toBe(true)
   })
 
   it('handles undefined as unknown', () => {
-    const result = formatBooleanSetting(false, undefined)
+    const result = formatProcessingSetting(undefined)
     expect(result.text).toBe('Unknown')
     expect(result.overridden).toBe(false)
   })
@@ -111,5 +113,41 @@ describe('deduplicateDevices', () => {
 
   it('returns empty array for empty input', () => {
     expect(deduplicateDevices([])).toEqual([])
+  })
+})
+
+describe('formatDuration', () => {
+  it('formats sub-second as ms', () => {
+    expect(formatDuration(0.123)).toBe('123 ms')
+  })
+
+  it('formats 0 as ms', () => {
+    expect(formatDuration(0)).toBe('0 ms')
+  })
+
+  it('formats 1 second', () => {
+    expect(formatDuration(1)).toBe('1.00 s')
+  })
+
+  it('formats 2.345 seconds', () => {
+    expect(formatDuration(2.345)).toBe('2.35 s')
+  })
+})
+
+describe('bufferDuration', () => {
+  it('computes correct duration', () => {
+    expect(bufferDuration(48000, 48000)).toBeCloseTo(1.0)
+  })
+
+  it('computes correct duration for 2 seconds at 44100', () => {
+    expect(bufferDuration(88200, 44100)).toBeCloseTo(2.0)
+  })
+
+  it('returns 0 for 0 sample rate', () => {
+    expect(bufferDuration(1000, 0)).toBe(0)
+  })
+
+  it('returns 0 for 0 samples', () => {
+    expect(bufferDuration(0, 48000)).toBe(0)
   })
 })

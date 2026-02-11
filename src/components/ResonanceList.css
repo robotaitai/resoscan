@@ -1,0 +1,101 @@
+/* ---------------------------------------------------------------------------
+ * ResonanceList component
+ * -------------------------------------------------------------------------*/
+
+.resonance-list {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.resonance-list h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+  color: var(--color-text);
+}
+
+.resonance-empty {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ----- Table ----- */
+
+.resonance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.resonance-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 0.4rem 0.6rem;
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.resonance-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ----- Row interaction ----- */
+
+.resonance-row {
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+  outline: none;
+}
+
+.resonance-row:hover {
+  background-color: var(--color-surface-alt);
+}
+
+.resonance-row:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+.resonance-row--selected {
+  background-color: var(--color-primary-light, rgba(37, 99, 235, 0.1));
+  font-weight: 600;
+}
+
+.resonance-row--selected td {
+  color: var(--color-primary, #2563eb);
+}
+
+/* ----- Cells ----- */
+
+.resonance-rank {
+  width: 2rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.resonance-freq {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.resonance-db {
+  white-space: nowrap;
+}
+
+.resonance-prom {
+  white-space: nowrap;
+  color: var(--color-text-muted);
+}
+
+.resonance-band {
+  white-space: nowrap;
+}
+
+/* ----- Clear button ----- */
+
+.resonance-clear {
+  margin-top: 0.5rem;
+}

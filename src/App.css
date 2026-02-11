@@ -1,3 +1,8 @@
+/* ---------------------------------------------------------------------------
+ * App layout — only structural styles that belong to the App shell.
+ * Shared utilities (buttons, tables, feedback) live in index.css.
+ * -------------------------------------------------------------------------*/
+
 .app {
   max-width: 640px;
   margin: 0 auto;
@@ -23,13 +28,13 @@
 }
 
 .subtitle {
-  color: #888;
+  color: var(--color-text-muted);
   margin: 0.25rem 0 0;
   font-size: 1.1rem;
 }
 
 .range {
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   margin-top: 0.5rem;
   font-variant-numeric: tabular-nums;
@@ -55,119 +60,25 @@
 }
 
 .landing-intro {
-  color: #555;
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: 1.55;
   margin: 0;
 }
 
-/* ----- Shared buttons ----- */
-
-.btn {
-  padding: 0.65rem 1.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition:
-    background 0.2s,
-    opacity 0.2s;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: #2563eb;
-  color: #fff;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: #1d4ed8;
-}
-
-.btn-lg {
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
-}
-
-/* ----- Common elements ----- */
-
-.hint {
-  color: #888;
-  font-size: 0.9rem;
-}
-
-.error {
-  color: #dc2626;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-}
-
-.settings-panel {
-  width: 100%;
-  margin-top: 1.5rem;
-}
-
-.settings-panel h2,
-.settings-panel h3 {
-  font-size: 1rem;
-  margin: 0 0 0.25rem;
-}
-
-.settings-note {
-  font-size: 0.8rem;
-  color: #888;
-  margin: 0 0 0.75rem;
-}
-
-.settings-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.settings-table th,
-.settings-table td {
-  text-align: left;
-  padding: 0.4rem 0.75rem;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.settings-table th {
-  font-weight: 600;
-  color: #555;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.good {
-  color: #16a34a;
-}
-
-.warn {
-  color: #dc2626;
-  font-weight: 600;
-}
+/* ----- Footer ----- */
 
 .footer {
   text-align: center;
   margin-top: 3rem;
   padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
   font-size: 0.8rem;
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .footer a {
-  color: #2563eb;
+  color: var(--color-primary);
   text-decoration: none;
 }
 

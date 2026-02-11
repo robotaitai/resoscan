@@ -1,0 +1,219 @@
+/* ---------------------------------------------------------------------------
+ * MeasurementPanel component — only styles specific to this component.
+ * Buttons, tables, and feedback classes come from index.css.
+ * -------------------------------------------------------------------------*/
+
+.measurement-panel {
+  width: 100%;
+}
+
+.measurement-panel h2 {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+/* ----- Sweep duration selector ----- */
+
+.sweep-duration-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.sweep-duration-control select {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.measurement-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ----- Countdown (shared with RecordingPanel) ----- */
+
+.measurement-panel .countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.measurement-panel .countdown-number {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.measurement-panel .countdown-label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ----- Active measurement ----- */
+
+.measurement-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ----- Phase indicator ----- */
+
+.phase-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.playing-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.phase-label {
+  color: var(--color-text);
+}
+
+/* ----- Measure button ----- */
+
+.btn-measure {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+.btn-measure:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+/* ----- Level meter ----- */
+
+.level-meter {
+  width: 100%;
+}
+
+.level-meter-track {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.level-meter-rms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--color-success);
+  transition: width 0.05s linear;
+  border-radius: var(--radius-sm);
+}
+
+.level-meter-rms.level-clipping {
+  background: var(--color-danger);
+}
+
+.level-meter-peak {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--color-text);
+  transition: left 0.05s linear;
+}
+
+.level-meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ----- Clipping warning ----- */
+
+.clipping-warning {
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ----- Result ----- */
+
+.measurement-result {
+  margin-top: 0.5rem;
+}
+
+.measurement-result h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+  color: var(--color-success);
+}
+
+/* ----- Waveform (same as RecordingPanel) ----- */
+
+.measurement-result .waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 80px;
+  width: 100%;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 1rem;
+}
+
+.measurement-result .waveform-bar {
+  flex: 1;
+  min-height: 1px;
+  background: var(--color-primary);
+  border-radius: 1px;
+}
+
+.measurement-stats {
+  margin-top: 0;
+}

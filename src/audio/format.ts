@@ -1,4 +1,7 @@
+import { MAX_DEVICE_LABEL_LENGTH } from '../constants'
 import type { AudioTrackSettings, MicDevice } from './types'
+
+type DeviceKind = 'input' | 'output'
 
 /**
  * Format a device label for display.
@@ -8,39 +11,44 @@ import type { AudioTrackSettings, MicDevice } from './types'
 export function formatDeviceLabel(
   device: Pick<MicDevice, 'deviceId' | 'label'>,
   index: number,
+  kind: DeviceKind = 'input',
 ): string {
   if (!device.label || device.label.trim() === '') {
-    return `Microphone ${index + 1}`
+    const fallback =
+      kind === 'output' ? `Speaker ${index + 1}` : `Microphone ${index + 1}`
+    return fallback
   }
-  // Truncate very long labels
   const label = device.label.trim()
-  return label.length > 60 ? label.slice(0, 59) + '…' : label
+  if (label.length <= MAX_DEVICE_LABEL_LENGTH) return label
+  return label.slice(0, MAX_DEVICE_LABEL_LENGTH - 1) + '…'
 }
 
 /**
- * Format sample rate for display (e.g. "48,000 Hz" or "48 kHz").
+ * Format sample rate for display (e.g. "48 kHz" or "44.1 kHz").
  */
 export function formatSampleRate(rate: number | undefined): string {
   if (rate == null) return 'Unknown'
   if (rate >= 1000) {
     const kHz = rate / 1000
-    // Show integer kHz when exact, otherwise one decimal
     return Number.isInteger(kHz) ? `${kHz} kHz` : `${kHz.toFixed(1)} kHz`
   }
   return `${rate} Hz`
 }
 
 /**
- * Describe an audio processing boolean setting with override warning.
+ * Describe whether a browser-applied boolean audio processing setting
+ * differs from what we requested (always `false` — raw input).
+ *
+ * Returns a display string and whether the browser overrode our request.
  */
-export function formatBooleanSetting(
-  _requested: false,
-  actual: boolean | undefined,
-): { text: string; overridden: boolean } {
+export function formatProcessingSetting(actual: boolean | undefined): {
+  text: string
+  overridden: boolean
+} {
   if (actual == null) {
     return { text: 'Unknown', overridden: false }
   }
-  if (actual === true) {
+  if (actual) {
     return { text: 'true (browser override!)', overridden: true }
   }
   return { text: 'false', overridden: false }
@@ -71,6 +79,28 @@ export function summariseSettings(settings: AudioTrackSettings): string {
   }
 
   return parts.length > 0 ? parts.join(' · ') : 'No details available'
+}
+
+/**
+ * Format a duration in seconds to a human-readable string.
+ * e.g. 2.345 → "2.35 s", 0.123 → "123 ms"
+ */
+export function formatDuration(seconds: number): string {
+  if (seconds < 1) {
+    return `${Math.round(seconds * 1000)} ms`
+  }
+  return `${seconds.toFixed(2)} s`
+}
+
+/**
+ * Compute the duration of a buffer in seconds.
+ */
+export function bufferDuration(
+  sampleCount: number,
+  sampleRate: number,
+): number {
+  if (sampleRate <= 0) return 0
+  return sampleCount / sampleRate
 }
 
 /**

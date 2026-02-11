@@ -1,0 +1,93 @@
+/* ---------------------------------------------------------------------------
+ * ImpulseResponsePlot component
+ * -------------------------------------------------------------------------*/
+
+.ir-plot {
+  margin-top: 1.5rem;
+}
+
+.ir-plot h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem;
+  color: var(--color-text);
+}
+
+.ir-plot-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.75rem;
+}
+
+/* ----- Waveform ----- */
+
+.ir-waveform {
+  position: relative;
+  display: flex;
+  gap: 1px;
+  height: 120px;
+  width: 100%;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+}
+
+/*
+ * Each column is a flex-1 slot that spans the full height.
+ * Positive bars align to the bottom of the top half (flex-end in the top half).
+ * Negative bars align to the top of the bottom half (flex-start in the bottom half).
+ */
+.ir-bar-col {
+  flex: 1;
+  display: flex;
+  align-items: flex-end; /* default: positive bars grow upward from centre */
+  min-width: 0;
+  height: 50%;
+  align-self: flex-start;
+}
+
+/* When the bar is negative, the column flips to the bottom half */
+.ir-bar-col:has(.ir-bar-neg) {
+  align-items: flex-start;
+  align-self: flex-end;
+}
+
+.ir-bar {
+  width: 100%;
+  min-height: 0.5px;
+  border-radius: 1px;
+}
+
+.ir-bar-pos {
+  background: var(--color-primary);
+}
+
+.ir-bar-neg {
+  background: var(--color-danger);
+}
+
+.ir-zero-line {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+  background: var(--color-text-muted);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ----- Time axis ----- */
+
+.ir-time-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  padding: 0 4px;
+}
+
+.ir-stats {
+  margin-top: 0;
+}
