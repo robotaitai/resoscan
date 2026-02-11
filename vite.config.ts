@@ -8,7 +8,7 @@ export default defineConfig({
   // GitHub Pages serves from /<repo-name>/.
   // Electron needs './' for file:// protocol.
   // Set VITE_BASE=./ when building for Electron.
-  base: process.env.VITE_BASE ?? '/ResoScan/',
+  base: process.env.VITE_BASE ?? '/resoscan/',
 
   test: {
     globals: true,
