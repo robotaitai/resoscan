@@ -4,6 +4,8 @@ Measure your room's resonance frequencies — right in your browser.
 
 Plays a sine sweep through your speakers, records it with your microphone, and shows which frequencies your room amplifies or absorbs.
 
+![How your room changes your sound](docs/nano.jpg)
+
 > **Try it now:** [https://robotaitai.github.io/resoscan/](https://robotaitai.github.io/resoscan/)
 
 ## How to use
@@ -28,31 +30,6 @@ Plays a sine sweep through your speakers, records it with your microphone, and s
 - **Device selection** — choose input mic and output speakers
 - **Dark mode** — follows system preference
 
-## Run locally
+---
 
-```bash
-git clone https://github.com/robotaitai/resoscan.git
-cd resoscan
-npm ci
-npm run dev
-```
-
-## Scripts
-
-| Command             | What it does                    |
-| ------------------- | ------------------------------- |
-| `npm run dev`       | Dev server                      |
-| `npm run build`     | Type-check + production build   |
-| `npm test`          | Unit tests (Vitest)             |
-| `npm run lint`      | ESLint                          |
-| `npm run typecheck` | TypeScript check                |
-| `npm run format`    | Prettier                        |
-| `npm run test:e2e`  | Playwright smoke tests          |
-
-## Tech
-
-Vite + React + TypeScript · Web Audio API · Pure TS DSP (FFT, convolution, deconvolution) · Vitest + Playwright · ESLint + Prettier · GitHub Actions CI/CD · Optional Electron wrapper
-
-## License
-
-[MIT](LICENSE)
+[Run locally, scripts, tech →](docs/CONTRIBUTING.md)

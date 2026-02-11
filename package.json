@@ -7,14 +7,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint -c config/eslint.config.js .",
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --config config/playwright.config.ts",
     "electron:dev": "VITE_BASE=./ npm run build && electron .",
     "electron:build": "VITE_BASE=./ npm run build && electron-builder"
   },
