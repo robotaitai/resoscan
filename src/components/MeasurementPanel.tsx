@@ -17,6 +17,7 @@ import type { CalibrationData } from '../dsp/calibration'
 import { ImpulseResponsePlot } from './ImpulseResponsePlot'
 import { FrequencyResponseChart } from './FrequencyResponseChart'
 import { ResonanceList } from './ResonanceList'
+import { EQView } from './EQView'
 import { CalibrationUpload } from './CalibrationUpload'
 import './MeasurementPanel.css'
 
@@ -174,11 +175,13 @@ function MeasurementResultDisplay({
 }) {
   const waveform = downsampleForWaveform(result.buffer, WAVEFORM_BAR_COUNT)
 
-  // Peak detection state — runs when the chart recomputes its points
+  // Frequency response points + peak detection
+  const [frPoints, setFrPoints] = useState<FrequencyPoint[]>([])
   const [peaks, setPeaks] = useState<DetectedPeak[]>([])
   const [highlightedFreq, setHighlightedFreq] = useState<number | null>(null)
 
   const handlePointsComputed = useCallback((points: FrequencyPoint[]) => {
+    setFrPoints(points)
     const detected = detectPeaks(points, {
       minProminence: PEAK_PROMINENCE_DB,
       maxPeaks: PEAK_MAX_COUNT,
@@ -277,6 +280,11 @@ function MeasurementResultDisplay({
           onPointsComputed={handlePointsComputed}
           calibration={calibration}
         />
+      )}
+
+      {/* EQ-style view */}
+      {frPoints.length > 0 && (
+        <EQView points={frPoints} highlightedFreq={highlightedFreq} />
       )}
 
       {/* Resonance peaks list */}

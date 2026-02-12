@@ -1,0 +1,47 @@
+/* ---------------------------------------------------------------------------
+ * EQView — DAW-style parametric EQ display
+ * -------------------------------------------------------------------------*/
+
+.eq-view {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.eq-view-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.eq-view-header h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.eq-view-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ----- Canvas ----- */
+
+.eq-canvas {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  cursor: crosshair;
+  border: 1px solid #1e2030;
+}
+
+/* ----- Hover readout ----- */
+
+.eq-readout {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
