@@ -17,7 +17,6 @@ import type { CalibrationData } from '../dsp/calibration'
 import { ImpulseResponsePlot } from './ImpulseResponsePlot'
 import { FrequencyResponseChart } from './FrequencyResponseChart'
 import { ResonanceList } from './ResonanceList'
-import { EQView } from './EQView'
 import { CalibrationUpload } from './CalibrationUpload'
 import { RT60Display } from './RT60Display'
 import { ExportToolbar } from './ExportToolbar'
@@ -291,11 +290,6 @@ function MeasurementResultDisplay({
           onPointsComputed={handlePointsComputed}
           calibration={calibration}
         />
-      )}
-
-      {/* EQ-style view */}
-      {frPoints.length > 0 && (
-        <EQView points={frPoints} highlightedFreq={highlightedFreq} />
       )}
 
       {/* Waterfall / spectral decay */}

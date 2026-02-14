@@ -12,9 +12,9 @@ Plays a sine sweep through your speakers, records it with your microphone, and s
 
 ## Explanation
 
-![How your room changes your sound](docs/nano.jpg)
+![How your room changes your sound](docs/assets/vis.png)
 
-![Resonance vs. Echo: The science of poor room acoustics](docs/explain.png)
+![Resonance vs. Echo: The science of poor room acoustics](docs/assets/explain.png)
 
 ## How to use
 
