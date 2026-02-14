@@ -1,0 +1,153 @@
+/**
+ * Export utilities — WAV, CSV, and text report generation.
+ *
+ * All functions produce Blobs or strings; download triggering is in the UI layer.
+ */
+
+import type { FrequencyPoint } from './frequencyResponse'
+import type { MeasurementResult } from '../audio/types'
+import type { DetectedPeak } from './peakDetection'
+import type { RT60Result } from './rt60'
+
+// ---------------------------------------------------------------------------
+// WAV export
+// ---------------------------------------------------------------------------
+
+/**
+ * Encode a Float32Array as a 16-bit PCM WAV file.
+ *
+ * @param samples    Mono audio samples (-1 to +1).
+ * @param sampleRate Sample rate in Hz.
+ * @returns A Blob of type audio/wav.
+ */
+export function exportWav(samples: Float32Array, sampleRate: number): Blob {
+  const numChannels = 1
+  const bitsPerSample = 16
+  const bytesPerSample = bitsPerSample / 8
+  const blockAlign = numChannels * bytesPerSample
+  const dataSize = samples.length * blockAlign
+  const buffer = new ArrayBuffer(44 + dataSize)
+  const view = new DataView(buffer)
+
+  // RIFF header
+  writeString(view, 0, 'RIFF')
+  view.setUint32(4, 36 + dataSize, true)
+  writeString(view, 8, 'WAVE')
+
+  // fmt chunk
+  writeString(view, 12, 'fmt ')
+  view.setUint32(16, 16, true) // chunk size
+  view.setUint16(20, 1, true) // PCM format
+  view.setUint16(22, numChannels, true)
+  view.setUint32(24, sampleRate, true)
+  view.setUint32(28, sampleRate * blockAlign, true) // byte rate
+  view.setUint16(32, blockAlign, true)
+  view.setUint16(34, bitsPerSample, true)
+
+  // data chunk
+  writeString(view, 36, 'data')
+  view.setUint32(40, dataSize, true)
+
+  // PCM samples (clamp to -1..+1, scale to int16)
+  let offset = 44
+  for (let i = 0; i < samples.length; i++) {
+    const clamped = Math.max(-1, Math.min(1, samples[i]))
+    const int16 = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff
+    view.setInt16(offset, int16, true)
+    offset += 2
+  }
+
+  return new Blob([buffer], { type: 'audio/wav' })
+}
+
+function writeString(view: DataView, offset: number, str: string): void {
+  for (let i = 0; i < str.length; i++) {
+    view.setUint8(offset + i, str.charCodeAt(i))
+  }
+}
+
+// ---------------------------------------------------------------------------
+// CSV export
+// ---------------------------------------------------------------------------
+
+/**
+ * Export frequency response points as CSV.
+ */
+export function exportFrequencyResponseCsv(points: FrequencyPoint[]): string {
+  const lines = ['Frequency (Hz),Magnitude (dB)']
+  for (const p of points) {
+    lines.push(`${p.freq.toFixed(2)},${p.db.toFixed(2)}`)
+  }
+  return lines.join('\n')
+}
+
+// ---------------------------------------------------------------------------
+// Text report
+// ---------------------------------------------------------------------------
+
+/**
+ * Generate a human-readable measurement report.
+ */
+export function exportReport(
+  result: MeasurementResult,
+  peaks: DetectedPeak[],
+  rt60: RT60Result | null,
+): string {
+  const lines: string[] = []
+
+  lines.push('═══════════════════════════════════════════')
+  lines.push('  ResoScan — Room Measurement Report')
+  lines.push('═══════════════════════════════════════════')
+  lines.push('')
+
+  // Metadata
+  lines.push('Measurement')
+  lines.push('───────────')
+  lines.push(
+    `  Date:         ${new Date(result.meta.startedAt).toLocaleString()}`,
+  )
+  lines.push(`  Sample rate:  ${result.meta.sampleRate} Hz`)
+  lines.push(
+    `  Sweep:        ${result.meta.fStart} – ${result.meta.fEnd} Hz (${result.meta.sweepDurationSec} s)`,
+  )
+  lines.push(`  Duration:     ${result.actualDurationSec.toFixed(2)} s`)
+  lines.push(`  RMS level:    ${result.rms.toFixed(4)}`)
+  lines.push(`  Peak:         ${result.peak.toFixed(4)}`)
+  lines.push(
+    `  Clipping:     ${result.clipped ? `Yes (${result.clippedSampleCount} samples)` : 'No'}`,
+  )
+  lines.push('')
+
+  // RT60
+  if (rt60) {
+    lines.push('Reverberation')
+    lines.push('─────────────')
+    lines.push(`  RT60 (T20):   ${rt60.rt60.toFixed(2)} s`)
+    if (rt60.t30 !== null) {
+      lines.push(`  RT60 (T30):   ${rt60.t30.toFixed(2)} s`)
+    }
+    lines.push(`  Noise floor:  ${rt60.noiseFloorDb.toFixed(1)} dB`)
+    lines.push('')
+  }
+
+  // Peaks
+  if (peaks.length > 0) {
+    lines.push('Detected Resonances')
+    lines.push('───────────────────')
+    lines.push('  #   Frequency       Level    Prominence  Band')
+    for (let i = 0; i < peaks.length; i++) {
+      const p = peaks[i]
+      const freq =
+        p.freq >= 1000
+          ? `${(p.freq / 1000).toFixed(2)} kHz`
+          : `${p.freq.toFixed(1)} Hz`
+      const line = `  ${String(i + 1).padStart(2)}  ${freq.padEnd(14)} ${(p.db >= 0 ? '+' : '') + p.db.toFixed(1).padStart(6)} dB  +${p.prominence.toFixed(1).padStart(5)} dB  ${p.band ?? '—'}`
+      lines.push(line)
+    }
+    lines.push('')
+  }
+
+  lines.push('Generated by ResoScan — https://robotaitai.github.io/resoscan/')
+
+  return lines.join('\n')
+}

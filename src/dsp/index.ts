@@ -43,3 +43,17 @@ export {
   interpolateCalibration,
   applyCalibration,
 } from './calibration'
+
+export type { RT60Result } from './rt60'
+
+export { estimateRT60, computeEDC } from './rt60'
+
+export type {
+  WaterfallSlice,
+  WaterfallData,
+  WaterfallOptions,
+} from './waterfall'
+
+export { computeWaterfall } from './waterfall'
+
+export { exportWav, exportFrequencyResponseCsv, exportReport } from './export'

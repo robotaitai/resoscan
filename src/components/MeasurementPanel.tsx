@@ -19,7 +19,11 @@ import { FrequencyResponseChart } from './FrequencyResponseChart'
 import { ResonanceList } from './ResonanceList'
 import { EQView } from './EQView'
 import { CalibrationUpload } from './CalibrationUpload'
+import { RT60Display } from './RT60Display'
+import { ExportToolbar } from './ExportToolbar'
+import { WaterfallChart } from './WaterfallChart'
 import { useTonePlayer } from '../audio/useTonePlayer'
+import type { RT60Result } from '../dsp/rt60'
 import './MeasurementPanel.css'
 
 interface MeasurementPanelProps {
@@ -184,6 +188,9 @@ function MeasurementResultDisplay({
   // Tone player for auditioning detected peaks
   const tonePlayer = useTonePlayer()
 
+  // RT60 result (set by RT60Display via callback)
+  const [rt60, setRt60] = useState<RT60Result | null>(null)
+
   const handlePointsComputed = useCallback((points: FrequencyPoint[]) => {
     setFrPoints(points)
     const detected = detectPeaks(points, {
@@ -291,12 +298,37 @@ function MeasurementResultDisplay({
         <EQView points={frPoints} highlightedFreq={highlightedFreq} />
       )}
 
+      {/* Waterfall / spectral decay */}
+      {result.impulseResponse && (
+        <WaterfallChart
+          data={result.impulseResponse}
+          sampleRate={result.meta.sampleRate}
+        />
+      )}
+
       {/* Resonance peaks list */}
       <ResonanceList
         peaks={peaks}
         highlightedFreq={highlightedFreq}
         onSelectPeak={setHighlightedFreq}
         tonePlayer={tonePlayer}
+      />
+
+      {/* RT60 reverberation time */}
+      {result.impulseResponse && (
+        <RT60Display
+          data={result.impulseResponse}
+          sampleRate={result.meta.sampleRate}
+          onResult={setRt60}
+        />
+      )}
+
+      {/* Export toolbar */}
+      <ExportToolbar
+        result={result}
+        frPoints={frPoints}
+        peaks={peaks}
+        rt60={rt60}
       />
     </div>
   )

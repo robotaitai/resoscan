@@ -1,0 +1,70 @@
+/* RT60Display */
+
+.rt60-display {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.rt60-display h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+  color: var(--color-text);
+}
+
+.rt60-empty {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Cards layout */
+
+.rt60-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.rt60-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  min-width: 130px;
+}
+
+.rt60-card--primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.rt60-card--primary .rt60-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rt60-card--primary .rt60-hint {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rt60-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.rt60-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.rt60-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
