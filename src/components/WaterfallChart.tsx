@@ -184,6 +184,14 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
         </span>
       </div>
       <canvas ref={canvasRef} className="waterfall-canvas" />
+
+      <p className="waterfall-explain">
+        Each row is a snapshot of the frequency spectrum at a point in time
+        after the impulse. <strong>Bright/warm colors</strong> = loud,{' '}
+        <strong>dark/cool colors</strong> = quiet. Frequencies that stay bright
+        longer are ringing in your room — these are the problematic resonances
+        that make your low end muddy or your mixes translate poorly.
+      </p>
     </div>
   )
 }

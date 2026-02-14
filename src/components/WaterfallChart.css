@@ -29,3 +29,10 @@
   border-radius: var(--radius-sm);
   border: 1px solid #1e2030;
 }
+
+.waterfall-explain {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}

@@ -98,6 +98,16 @@ export function ResonanceList({
           })}
         </tbody>
       </table>
+      {tonePlayer && (
+        <p className="resonance-tip">
+          Hit <strong>play</strong> on a peak and walk around your room — feel
+          where the tone gets louder (pressure zone) or disappears (null). Touch
+          walls, corners, and panels: anything that buzzes or rattles at that
+          frequency is a resonance culprit. That&apos;s where treatment (bass
+          trap, absorption, decoupling) will have the most impact.
+        </p>
+      )}
+
       {highlightedFreq !== null && (
         <button
           className="btn btn-small resonance-clear"

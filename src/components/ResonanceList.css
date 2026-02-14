@@ -143,6 +143,15 @@
   }
 }
 
+/* ----- Tip text ----- */
+
+.resonance-tip {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
 /* ----- Clear button ----- */
 
 .resonance-clear {
