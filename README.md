@@ -14,7 +14,6 @@ Plays a sine sweep through your speakers, records it with your microphone, and s
 
 ![How your room changes your sound](docs/assets/vis.png)
 
-![Resonance vs. Echo: The science of poor room acoustics](docs/assets/explain.png)
 
 ## How to use
 
@@ -37,6 +36,8 @@ Plays a sine sweep through your speakers, records it with your microphone, and s
 - **Live levels** — RMS & peak meter with clipping warning
 - **Device selection** — choose input mic and output speakers
 - **Dark mode** — follows system preference
+
+![Resonance vs. Echo: The science of poor room acoustics](docs/assets/explain.png)
 
 ---
 
