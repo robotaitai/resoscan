@@ -20,11 +20,13 @@ export type {
   UseRecorderReturn,
 } from './useRecorder'
 export type { MeasurementState, UseMeasurementReturn } from './useMeasurement'
+export type { TonePlayerState } from './useTonePlayer'
 export type { ClippingResult } from './recording'
 
 export { useAudioSetup } from './useAudioSetup'
 export { useRecorder } from './useRecorder'
 export { useMeasurement } from './useMeasurement'
+export { useTonePlayer } from './useTonePlayer'
 
 export {
   concatChunks,

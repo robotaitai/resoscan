@@ -1,9 +1,11 @@
 /**
  * ResonanceList — displays detected resonance peaks in a sortable table.
  * Clicking a row highlights the peak on the frequency response chart.
+ * Each row has a Play button to audition the frequency as a sine tone.
  */
 
 import type { DetectedPeak } from '../dsp/peakDetection'
+import type { TonePlayerState } from '../audio/useTonePlayer'
 import './ResonanceList.css'
 
 // ---------------------------------------------------------------------------
@@ -17,6 +19,8 @@ interface ResonanceListProps {
   highlightedFreq: number | null
   /** Called when the user clicks a peak row. */
   onSelectPeak: (freq: number | null) => void
+  /** Tone player for auditioning peaks. */
+  tonePlayer?: TonePlayerState
 }
 
 // ---------------------------------------------------------------------------
@@ -27,6 +31,7 @@ export function ResonanceList({
   peaks,
   highlightedFreq,
   onSelectPeak,
+  tonePlayer,
 }: ResonanceListProps) {
   if (peaks.length === 0) {
     return (
@@ -50,6 +55,7 @@ export function ResonanceList({
             <th>Level</th>
             <th>Prominence</th>
             <th>Band</th>
+            {tonePlayer && <th>Listen</th>}
           </tr>
         </thead>
         <tbody>
@@ -82,6 +88,11 @@ export function ResonanceList({
                   +{peak.prominence.toFixed(1)} dB
                 </td>
                 <td className="resonance-band">{peak.band ?? '—'}</td>
+                {tonePlayer && (
+                  <td className="resonance-play">
+                    <PlayButton freq={peak.freq} tonePlayer={tonePlayer} />
+                  </td>
+                )}
               </tr>
             )
           })}
@@ -96,6 +107,43 @@ export function ResonanceList({
         </button>
       )}
     </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Sub-components
+// ---------------------------------------------------------------------------
+
+function PlayButton({
+  freq,
+  tonePlayer,
+}: {
+  freq: number
+  tonePlayer: TonePlayerState
+}) {
+  const isThisPlaying =
+    tonePlayer.isPlaying &&
+    tonePlayer.playingFreq !== null &&
+    Math.abs(tonePlayer.playingFreq - freq) / freq < 0.001
+
+  return (
+    <button
+      className={`btn btn-small resonance-play-btn ${isThisPlaying ? 'resonance-play-btn--active' : ''}`}
+      onClick={(e) => {
+        e.stopPropagation()
+        if (isThisPlaying) {
+          tonePlayer.stop()
+        } else {
+          tonePlayer.play(freq)
+        }
+      }}
+      title={isThisPlaying ? 'Stop tone' : `Play ${formatFrequency(freq)}`}
+      aria-label={
+        isThisPlaying ? 'Stop tone' : `Play tone at ${formatFrequency(freq)}`
+      }
+    >
+      {isThisPlaying ? '\u25A0' : '\u25B6'}
+    </button>
   )
 }
 

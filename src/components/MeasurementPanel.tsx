@@ -19,6 +19,7 @@ import { FrequencyResponseChart } from './FrequencyResponseChart'
 import { ResonanceList } from './ResonanceList'
 import { EQView } from './EQView'
 import { CalibrationUpload } from './CalibrationUpload'
+import { useTonePlayer } from '../audio/useTonePlayer'
 import './MeasurementPanel.css'
 
 interface MeasurementPanelProps {
@@ -180,6 +181,9 @@ function MeasurementResultDisplay({
   const [peaks, setPeaks] = useState<DetectedPeak[]>([])
   const [highlightedFreq, setHighlightedFreq] = useState<number | null>(null)
 
+  // Tone player for auditioning detected peaks
+  const tonePlayer = useTonePlayer()
+
   const handlePointsComputed = useCallback((points: FrequencyPoint[]) => {
     setFrPoints(points)
     const detected = detectPeaks(points, {
@@ -292,6 +296,7 @@ function MeasurementResultDisplay({
         peaks={peaks}
         highlightedFreq={highlightedFreq}
         onSelectPeak={setHighlightedFreq}
+        tonePlayer={tonePlayer}
       />
     </div>
   )
