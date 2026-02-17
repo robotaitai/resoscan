@@ -48,6 +48,20 @@ function App() {
               room response through your microphone to identify resonant
               frequencies.
             </p>
+            <ol className="how-it-works">
+              <li>
+                <strong>Play</strong> &mdash; a logarithmic sine sweep fills
+                your room
+              </li>
+              <li>
+                <strong>Record</strong> &mdash; your mic captures the room
+                response
+              </li>
+              <li>
+                <strong>Analyze</strong> &mdash; FFT reveals resonances, RT60
+                &amp; waterfall
+              </li>
+            </ol>
             <div className="landing-actions">
               <button
                 className="btn btn-primary btn-lg"

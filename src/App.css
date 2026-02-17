@@ -113,6 +113,43 @@
   margin: 0;
 }
 
+/* How it works — compact 3-step list */
+.how-it-works {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.how-it-works li {
+  counter-increment: step;
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+.how-it-works li::before {
+  content: '0' counter(step);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.how-it-works strong {
+  color: var(--color-text);
+}
+
 .landing-actions {
   display: flex;
   flex-direction: column;

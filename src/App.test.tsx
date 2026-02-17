@@ -44,9 +44,7 @@ describe('App – landing screen', () => {
   it('footer links to the correct GitHub repo', () => {
     render(<App />)
     const links = screen.getAllByRole('link', { name: /github/i })
-    const footerLink = links.find(
-      (l) => l.textContent?.trim() === 'GitHub',
-    )
+    const footerLink = links.find((l) => l.textContent?.trim() === 'GitHub')
     expect(footerLink).toBeDefined()
     expect(footerLink).toHaveAttribute(
       'href',
