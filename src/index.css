@@ -1,64 +1,46 @@
 /* ---------------------------------------------------------------------------
  * Design tokens (CSS custom properties)
  * Single source of truth for colors, spacing, and typography.
+ * Dark-first techy theme.
  * -------------------------------------------------------------------------*/
 
 :root {
-  /* Brand */
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
+  /* Brand — electric cyan accent */
+  --color-primary: #06d6a0;
+  --color-primary-hover: #05c291;
+  --color-primary-glow: rgba(6, 214, 160, 0.35);
 
   /* Semantic */
-  --color-success: #16a34a;
-  --color-danger: #dc2626;
-  --color-danger-hover: #b91c1c;
+  --color-success: #06d6a0;
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
 
-  /* Neutrals */
-  --color-bg: #fafafa;
-  --color-text: #1a1a1a;
-  --color-text-muted: #888;
-  --color-text-secondary: #555;
-  --color-text-label: #555;
-  --color-border: #e5e7eb;
-  --color-surface: #fff;
-  --color-surface-alt: #f3f4f6;
+  /* Neutrals — dark by default */
+  --color-bg: #0a0a0f;
+  --color-text: #e0e0e8;
+  --color-text-muted: #6b6b80;
+  --color-text-secondary: #9b9bb0;
+  --color-text-label: #9b9bb0;
+  --color-border: #1e1e2e;
+  --color-surface: #12121c;
+  --color-surface-alt: #16162a;
 
   /* Error surface */
-  --color-error-bg: #fef2f2;
-  --color-error-border: #fecaca;
+  --color-error-bg: #1f0a0a;
+  --color-error-border: #5c1a1a;
 
   /* Success badge */
-  --color-badge-bg: #dcfce7;
-  --color-badge-text: #166534;
+  --color-badge-bg: #052e16;
+  --color-badge-text: #86efac;
 
   /* Radii */
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-pill: 999px;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f0f0f;
-    --color-text: #e5e5e5;
-    --color-text-muted: #888;
-    --color-text-secondary: #aaa;
-    --color-text-label: #aaa;
-    --color-border: #333;
-    --color-surface: #1a1a1a;
-    --color-surface-alt: #1a1a1a;
-
-    --color-error-bg: #1f0a0a;
-    --color-error-border: #5c1a1a;
-
-    --color-badge-bg: #052e16;
-    --color-badge-text: #86efac;
-
-    --color-primary: #3b82f6;
-    --color-primary-hover: #2563eb;
-    --color-danger: #f87171;
-    --color-danger-hover: #ef4444;
-  }
+  /* Fonts */
+  --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code',
+    monospace;
 }
 
 /* ---------------------------------------------------------------------------
@@ -77,6 +59,12 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(
+    circle at 50% 0%,
+    rgba(6, 214, 160, 0.06) 0%,
+    transparent 60%
+  );
+  background-attachment: fixed;
 }
 
 /* ---------------------------------------------------------------------------
@@ -88,13 +76,17 @@ body {
 .btn {
   padding: 0.65rem 1.75rem;
   font-size: 1rem;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 500;
   transition:
     background 0.2s,
-    opacity 0.2s;
+    opacity 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
 }
 
 .btn:disabled {
@@ -104,11 +96,26 @@ body {
 
 .btn-primary {
   background: var(--color-primary);
-  color: #fff;
+  color: #0a0a0f;
+  font-weight: 600;
+  box-shadow: 0 0 20px var(--color-primary-glow);
 }
 
 .btn-primary:hover:not(:disabled) {
   background: var(--color-primary-hover);
+  box-shadow: 0 0 30px var(--color-primary-glow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary-glow);
 }
 
 .btn-lg {

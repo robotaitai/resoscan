@@ -48,12 +48,29 @@ function App() {
               room response through your microphone to identify resonant
               frequencies.
             </p>
-            <button
-              className="btn btn-primary btn-lg"
-              onClick={() => setScreen('setup')}
-            >
-              Start measurement
-            </button>
+            <div className="landing-actions">
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={() => setScreen('setup')}
+              >
+                Start measurement
+              </button>
+              <a
+                href="https://github.com/robotaitai/resoscan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-github"
+              >
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
+                </svg>
+                Star us on GitHub
+              </a>
+            </div>
+            <span className="tech-badge">
+              <span className="dot" />
+              Web Audio API &middot; Open Source
+            </span>
             <p className="hint">
               You will be asked for microphone permission in the next step.
             </p>
@@ -74,7 +91,7 @@ function App() {
         <p>
           External speakers assumed &middot; MIT License &middot;{' '}
           <a
-            href="https://github.com/your-username/resoscan"
+            href="https://github.com/robotaitai/resoscan"
             target="_blank"
             rel="noopener noreferrer"
           >
