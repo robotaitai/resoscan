@@ -14,7 +14,6 @@ Plays a sine sweep through your speakers, records it with your microphone, and s
 
 ![How your room changes your sound](docs/assets/vis.png)
 
-
 ## How to use
 
 1. Open the link above in **Chrome** on a laptop/desktop.

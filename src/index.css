@@ -39,8 +39,8 @@
   --radius-pill: 999px;
 
   /* Fonts */
-  --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code',
-    monospace;
+  --font-mono:
+    'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
 }
 
 /* ---------------------------------------------------------------------------
