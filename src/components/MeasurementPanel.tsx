@@ -60,7 +60,7 @@ export function MeasurementPanel({
 
   return (
     <section className="measurement-panel" aria-label="Measurement">
-      <h2>Measure</h2>
+      <h2 className="section-title">Measure</h2>
 
       {/* ---------- Calibration ---------- */}
       <CalibrationUpload

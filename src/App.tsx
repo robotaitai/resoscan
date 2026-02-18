@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { SWEEP_FREQ_START, SWEEP_FREQ_END } from './constants'
 import { AudioSetup } from './components/AudioSetup'
 import { MeasurementPanel } from './components/MeasurementPanel'
+import { BackgroundWaves } from './components/BackgroundWaves'
 import './App.css'
 
 type Screen = 'landing' | 'setup' | 'measure'
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <div className="app">
+      <BackgroundWaves />
       <header className="header">
         <h1>ResoScan</h1>
         <p className="subtitle">Room resonance measurement tool</p>

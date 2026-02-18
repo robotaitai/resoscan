@@ -1,0 +1,169 @@
+/* Animated wave background */
+
+.background-waves {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    black 20%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    black 20%,
+    transparent 75%
+  );
+}
+
+/* Floating orbs */
+.wave-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(229, 62, 62, 0.15) 0%,
+    rgba(229, 62, 62, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  animation: orb-float 14s ease-in-out infinite;
+}
+
+.wave-orb-1 {
+  width: 280px;
+  height: 280px;
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.wave-orb-2 {
+  width: 200px;
+  height: 200px;
+  top: 60%;
+  right: 20%;
+  animation-delay: -7s;
+  animation-duration: 17s;
+}
+
+.wave-orb-3 {
+  width: 160px;
+  height: 160px;
+  bottom: 20%;
+  left: 30%;
+  animation-delay: -14s;
+  animation-duration: 12s;
+}
+
+.wave-orb-4 {
+  width: 120px;
+  height: 120px;
+  top: 35%;
+  right: 35%;
+  animation-delay: -3s;
+  animation-duration: 19s;
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(30px, -20px) scale(1.05);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-20px, 25px) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(15px, 15px) scale(1.02);
+    opacity: 1;
+  }
+}
+
+.waves-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: wave-pulse 5s ease-in-out infinite;
+}
+
+@keyframes wave-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.wave-group {
+  animation: wave-flow 10s linear infinite;
+}
+
+.wave-group-2 {
+  animation-delay: -3s;
+  animation-duration: 12s;
+}
+
+.wave-group-3 {
+  animation-delay: -6s;
+  animation-duration: 8s;
+}
+
+.wave-group-saw {
+  animation: wave-flow 9s linear infinite;
+}
+
+.wave-group-saw path {
+  animation: saw-fade 10s ease-in-out infinite;
+}
+
+.wave-group-saw path:last-child {
+  animation-delay: 2s;
+}
+
+@keyframes saw-fade {
+  0%,
+  35% {
+    opacity: 0;
+  }
+  45%,
+  75% {
+    opacity: 1;
+  }
+  85%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.wave-group-diag {
+  animation: wave-flow-diag 14s linear infinite;
+}
+
+@keyframes wave-flow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-400px);
+  }
+}
+
+@keyframes wave-flow-diag {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-200px, 0);
+  }
+}

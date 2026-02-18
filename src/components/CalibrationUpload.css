@@ -26,9 +26,9 @@
 }
 
 .calibration-badge--active {
-  background: var(--color-success-bg, #dcfce7);
-  color: var(--color-success, #15803d);
-  border-color: var(--color-success, #15803d);
+  background: var(--color-success-bg, var(--color-badge-bg));
+  color: var(--color-badge-text);
+  border-color: var(--color-badge-text);
 }
 
 /* ----- Info row (when calibrated) ----- */

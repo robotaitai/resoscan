@@ -29,7 +29,7 @@ export function AudioSetup({ onProceed }: AudioSetupProps) {
 
   return (
     <section className="audio-setup" aria-label="Audio setup">
-      <h2>Audio setup</h2>
+      <h2 className="section-title">Audio setup</h2>
 
       {/* ---------- Permission request ---------- */}
       {permission !== 'granted' && (

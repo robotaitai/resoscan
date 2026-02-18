@@ -1,37 +1,38 @@
 /* ---------------------------------------------------------------------------
  * Design tokens (CSS custom properties)
  * Single source of truth for colors, spacing, and typography.
- * Dark-first techy theme.
+ * Light theme with red accent.
  * -------------------------------------------------------------------------*/
 
 :root {
-  /* Brand — electric cyan accent */
-  --color-primary: #06d6a0;
-  --color-primary-hover: #05c291;
-  --color-primary-glow: rgba(6, 214, 160, 0.35);
+  /* Brand — red accent */
+  --color-primary: #e53e3e;
+  --color-primary-hover: #c53030;
+  --color-primary-glow: rgba(229, 62, 62, 0.35);
 
   /* Semantic */
-  --color-success: #06d6a0;
-  --color-danger: #f87171;
-  --color-danger-hover: #ef4444;
+  --color-success: #38a169;
+  --color-danger: #e53e3e;
+  --color-danger-hover: #c53030;
 
-  /* Neutrals — dark by default */
-  --color-bg: #0a0a0f;
-  --color-text: #e0e0e8;
+  /* Neutrals — light by default */
+  --color-bg: #f8f8fa;
+  --color-text: #1a1a1f;
   --color-text-muted: #6b6b80;
-  --color-text-secondary: #9b9bb0;
-  --color-text-label: #9b9bb0;
-  --color-border: #1e1e2e;
-  --color-surface: #12121c;
-  --color-surface-alt: #16162a;
+  --color-text-secondary: #4a4a5a;
+  --color-text-label: #4a4a5a;
+  --color-border: #d8d8e0;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f0f4;
 
   /* Error surface */
-  --color-error-bg: #1f0a0a;
-  --color-error-border: #5c1a1a;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
 
-  /* Success badge */
-  --color-badge-bg: #052e16;
-  --color-badge-text: #86efac;
+  /* Success badge (calibrated) */
+  --color-badge-bg: #fef2f2;
+  --color-badge-text: #b91c1c;
+  --color-success-bg: #fef2f2;
 
   /* Radii */
   --radius-sm: 6px;
@@ -41,6 +42,22 @@
   /* Fonts */
   --font-mono:
     'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Section headings — match subtitle style (mono, secondary color) */
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
+}
+
+h2:not(.section-title),
+h3 {
+  font-family: var(--font-sans);
 }
 
 /* ---------------------------------------------------------------------------
@@ -61,7 +78,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: radial-gradient(
     circle at 50% 0%,
-    rgba(6, 214, 160, 0.06) 0%,
+    rgba(229, 62, 62, 0.08) 0%,
     transparent 60%
   );
   background-attachment: fixed;
@@ -96,7 +113,7 @@ body {
 
 .btn-primary {
   background: var(--color-primary);
-  color: #0a0a0f;
+  color: #fff;
   font-weight: 600;
   box-shadow: 0 0 20px var(--color-primary-glow);
 }

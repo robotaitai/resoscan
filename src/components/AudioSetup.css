@@ -7,11 +7,6 @@
   width: 100%;
 }
 
-.audio-setup h2 {
-  font-size: 1.3rem;
-  margin: 0 0 1rem;
-}
-
 .setup-step {
   display: flex;
   flex-direction: column;

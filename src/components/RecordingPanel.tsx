@@ -23,7 +23,7 @@ export function RecordingPanel({ stream }: RecordingPanelProps) {
 
   return (
     <section className="recording-panel" aria-label="Recording">
-      <h2>Record</h2>
+      <h2 className="section-title">Record</h2>
 
       {/* ---------- Controls ---------- */}
       <div className="recording-controls">

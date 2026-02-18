@@ -91,8 +91,12 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
     const pW = w - PADDING.left - PADDING.right
     const pH = h - PADDING.top - PADDING.bottom
 
-    // Background
-    ctx.fillStyle = '#0f1117'
+    // Background (matches theme)
+    const bgColor =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-surface-alt')
+        .trim() || '#f0f0f4'
+    ctx.fillStyle = bgColor
     ctx.fillRect(0, 0, w, h)
 
     const logMin = Math.log10(SWEEP_FREQ_START)
@@ -124,7 +128,11 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
     }
 
     // Grid lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'
+    const gridColor =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-border')
+        .trim() || 'rgba(0, 0, 0, 0.1)'
+    ctx.strokeStyle = gridColor
     ctx.lineWidth = 0.5
     for (const f of FREQ_TICKS) {
       const x = fX(f)
@@ -135,7 +143,11 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
     }
 
     // Frequency labels (bottom)
-    ctx.fillStyle = '#6b7280'
+    const labelColor =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-text-muted')
+        .trim() || '#6b7280'
+    ctx.fillStyle = labelColor
     ctx.font = '9px system-ui, -apple-system, sans-serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
@@ -146,7 +158,7 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
     }
     ctx.fillText('Hz', PADDING.left + pW / 2, PADDING.top + pH + 18)
 
-    // Time labels (left)
+    // Time labels (left) — reuse labelColor
     ctx.textAlign = 'right'
     ctx.textBaseline = 'middle'
     const timeSteps = 5
@@ -168,7 +180,7 @@ export function WaterfallChart({ data, sampleRate }: WaterfallChartProps) {
     }
 
     // Scale labels
-    ctx.fillStyle = '#6b7280'
+    ctx.fillStyle = labelColor
     ctx.textAlign = 'left'
     ctx.textBaseline = 'middle'
     ctx.fillText('0 dB', scaleX + scaleW + 4, PADDING.top)

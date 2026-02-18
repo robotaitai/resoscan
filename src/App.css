@@ -17,28 +17,13 @@
   position: relative;
 }
 
-/* Subtle grid overlay */
-.app::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(6, 214, 160, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 214, 160, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(
-    ellipse at 50% 30%,
-    black 20%,
-    transparent 70%
-  );
-}
-
 .app > * {
   position: relative;
   z-index: 1;
+}
+
+.app > .background-waves {
+  z-index: 0;
 }
 
 /* ----- Header ----- */
@@ -55,7 +40,7 @@
   margin: 0;
   letter-spacing: -0.03em;
   font-family: var(--font-mono);
-  background: linear-gradient(135deg, var(--color-primary) 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #c53030 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -187,7 +172,7 @@
   border-color: var(--color-primary);
   color: var(--color-primary);
   box-shadow: 0 0 16px var(--color-primary-glow);
-  background: rgba(6, 214, 160, 0.05);
+  background: rgba(229, 62, 62, 0.05);
 }
 
 .btn-github svg {

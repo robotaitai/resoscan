@@ -329,8 +329,12 @@ export function FrequencyResponseChart({
       ctx.closePath()
       ctx.fill()
 
-      // Outline
-      ctx.strokeStyle = '#fff'
+      // Outline (contrasts with marker on current theme)
+      const outlineColor =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue('--color-text')
+          .trim() || '#1a1a1f'
+      ctx.strokeStyle = outlineColor
       ctx.lineWidth = 1
       ctx.stroke()
 
